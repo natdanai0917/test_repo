@@ -20,5 +20,5 @@ func (s *server) playerService() {
 	player := s.app.Group("/player_v1")
 
 	//Health Check
-	player.GET("/health", s.healthCheckService)
+	player.GET("", s.healthCheckService)
 }

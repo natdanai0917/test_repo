@@ -18,5 +18,5 @@ func (s *server) itemService() {
 	item := s.app.Group("/item_v1")
 
 	//Health Check
-	item.GET("/health", s.healthCheckService)
+	item.GET("", s.healthCheckService)
 }
