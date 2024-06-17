@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "github.com/natdanai0917/test_repo";
+
+//Structure
+message FindItemInIdsReq {
+    repeated int32 ids =1;
+
+}
+message FindItemInIdsRes {
+    repeated Item items =1;
+
+}
+
+message Item {
+    string id=1;
+    string title =2;
+    double price =3;
+    string imageUrl =4;
+    int32 damage =5;
+}
+
+//Method
+service ItemGrpcService {
+    rpc FindItemInIds (FindItemInIdsReq) returns (FindItemInIdsRes);
+
+    
+}
