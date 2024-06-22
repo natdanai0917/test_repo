@@ -61,7 +61,7 @@ func NewGrpcServer(cfg *config.Jwt, host string) (*grpc.Server, net.Listener) {
 
 	grpcServer := grpc.NewServer(opts...)
 
-	lis, err := net.Listen("tpc", host)
+	lis, err := net.Listen("tcp", host)
 	if err != nil {
 		log.Fatalf("Error: Failed to listen:%v", err)
 	}

@@ -1,9 +1,14 @@
 package server
 
 import (
+	"log"
+
 	"github.com/natdanai0917/test_repo/modules/player/playerHandler"
 	"github.com/natdanai0917/test_repo/modules/player/playerRepository"
 	"github.com/natdanai0917/test_repo/modules/player/playerUsecase"
+	"github.com/natdanai0917/test_repo/pkg/grpccon"
+
+	playerPb "github.com/natdanai0917/test_repo/modules/player/playerPb"
 )
 
 func (s *server) playerService() {
@@ -12,6 +17,16 @@ func (s *server) playerService() {
 	playerHttpHandler := playerHandler.NewPlayerHttpHandler(s.cfg, playerUsecase)
 	playerGrpcHandler := playerHandler.NewPlayerGrpcHandler(playerHttpHandler)
 	playerQueueHandler := playerHandler.NewPlayerQueueHandler(s.cfg, playerHttpHandler)
+
+	// gRPC
+	go func() {
+		grpcServer, lis := grpccon.NewGrpcServer(&s.cfg.Jwt, s.cfg.Grpc.PlayerUrl)
+
+		playerPb.RegisterPlayerGrpcServiceServer(grpcServer, playerGrpcHandler)
+
+		log.Printf("Player gRPC server listening on %s", s.cfg.Grpc.PlayerUrl)
+		grpcServer.Serve(lis)
+	}()
 
 	_ = playerHttpHandler
 	_ = playerGrpcHandler

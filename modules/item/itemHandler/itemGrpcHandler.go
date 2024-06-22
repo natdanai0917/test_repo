@@ -9,14 +9,15 @@ import (
 
 type (
 	itemGrpcHandler struct {
-		authUsecase itemUsecase.ItemUsecaseService
+		itemPb.UnimplementedItemGrpcServiceServer
+		itemUsecase itemUsecase.ItemUsecaseService
 	}
 )
 
 func NewItemGrpcHandler(itemUsecase itemUsecase.ItemUsecaseService) *itemGrpcHandler {
-	return &itemGrpcHandler{itemUsecase}
+	return &itemGrpcHandler{itemUsecase: itemUsecase}
 }
 
-func (g *itemGrpcHandler) FindItemInIds(ctx context.Context, req itemPb.FindItemInIdsReq) (*itemPb.FindItemInIdsRes, error) {
+func (g *itemGrpcHandler) FindItemInIds(ctx context.Context, req *itemPb.FindItemInIdsReq) (*itemPb.FindItemInIdsRes, error) {
 	return nil, nil
 }

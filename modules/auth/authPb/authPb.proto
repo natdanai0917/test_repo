@@ -3,11 +3,11 @@ syntax = "proto3";
 option go_package = "github.com/natdanai0917/test_repo";
 
 //Structure
-message CredentialSearchReq {
+message AccessTokenSearchReq {
     string accressToken = 1;
 }
 
-message CredentialSearchRes {
+message AccessTokenSearchRes {
     string isValid = 1;
 }
 
@@ -19,6 +19,6 @@ message RolesCountRes {
 
 //Method
 service AuthGrpcService {
-    rpc CredentialSearch(CredentialSearchReq) returns (CredentialSearchRes);
+    rpc AccessTokenSearch(AccessTokenSearchReq) returns (AccessTokenSearchRes);
     rpc RolseCount(RolesCountReq) returns (RolesCountRes);
 }

@@ -19,6 +19,6 @@ type (
 	Role struct {
 		Id    primitive.ObjectID `json:"_id" bson:"_id,omitempty"`
 		Title string             `json:"title" bson:"title"`
-		Code  string             `json:"code" bson:"code"`
+		Code  int                `json:"code" bson:"code"`
 	}
 )

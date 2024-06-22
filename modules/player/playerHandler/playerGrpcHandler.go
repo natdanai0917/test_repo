@@ -9,10 +9,25 @@ import (
 
 type (
 	playerGrpcHandler struct {
-		playerPb      playerPb.UnimplementedPlayerGrpcServiceServer
+		playerPb.UnimplementedPlayerGrpcServiceServer
 		playerUsecase playerUsecase.PlayerUsecaseService
 	}
 )
+
+// FindPlayerProfileToRefresh implements test_repo.PlayerGrpcServiceServer.
+func (g *playerGrpcHandler) FindPlayerProfileToRefresh(context.Context, *playerPb.FindOnePlayerProfileToRefreshReq) (*playerPb.PlayerProfile, error) {
+	panic("unimplemented")
+}
+
+// GetPlayerSavingAccount implements test_repo.PlayerGrpcServiceServer.
+func (g *playerGrpcHandler) GetPlayerSavingAccount(context.Context, *playerPb.GetPlayerSavingAccountReq) (*playerPb.GetPlayerSavingAccountRes, error) {
+	panic("unimplemented")
+}
+
+// mustEmbedUnimplementedPlayerGrpcServiceServer implements test_repo.PlayerGrpcServiceServer.
+func (g *playerGrpcHandler) mustEmbedUnimplementedPlayerGrpcServiceServer() {
+	panic("unimplemented")
+}
 
 func NewPlayerGrpcHandler(playerUsecase playerUsecase.PlayerUsecaseService) *playerGrpcHandler {
 	return &playerGrpcHandler{playerUsecase: playerUsecase}
