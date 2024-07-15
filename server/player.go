@@ -15,8 +15,8 @@ func (s *server) playerService() {
 	playerRepository := playerRepository.NewPlayerRepository(s.db)
 	playerUsecase := playerUsecase.NewPlayerUsecase(playerRepository)
 	playerHttpHandler := playerHandler.NewPlayerHttpHandler(s.cfg, playerUsecase)
-	playerGrpcHandler := playerHandler.NewPlayerGrpcHandler(playerHttpHandler)
-	playerQueueHandler := playerHandler.NewPlayerQueueHandler(s.cfg, playerHttpHandler)
+	playerGrpcHandler := playerHandler.NewPlayerGrpcHandler(playerUsecase)
+	playerQueueHandler := playerHandler.NewPlayerQueueHandler(s.cfg, playerUsecase)
 
 	// gRPC
 	go func() {
@@ -28,7 +28,6 @@ func (s *server) playerService() {
 		grpcServer.Serve(lis)
 	}()
 
-	_ = playerHttpHandler
 	_ = playerGrpcHandler
 	_ = playerQueueHandler
 
@@ -36,4 +35,7 @@ func (s *server) playerService() {
 
 	//Health Check
 	player.GET("", s.healthCheckService)
+
+	player.POST("/player/register", playerHttpHandler.CreatePlayer)
+	player.GET("/player/:player_id", playerHttpHandler.FineOnePlayerProfile)
 }
