@@ -22,7 +22,7 @@ type (
 		Username string `json:"username" form:"username" validate:"required,max=32"`
 	}
 
-	CreatePlayerTransaction struct {
+	CreatePlayerTransactionReq struct {
 		PlayerId string  `json:"player_id" validate:"required,max=64"`
 		Amount   float64 `json:"amount" validate:"required"`
 	}
