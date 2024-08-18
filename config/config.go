@@ -31,7 +31,7 @@ type (
 	Jwt struct {
 		AccessSecretKey  string
 		RefreshSecretKey string
-		ApiSceretKey     string
+		ApiSecretKey     string
 		AccessDuration   int64
 		RefreshDuration  int64
 		ApiDuration      int64
@@ -74,7 +74,7 @@ func LoadConfig(path string) Config {
 		Jwt: Jwt{
 			AccessSecretKey:  os.Getenv("JWT_ACCESS_SECRET_KEY"),
 			RefreshSecretKey: os.Getenv("JWT_REFRESH_SECRET_KEY"),
-			ApiSceretKey:     os.Getenv("JWT_API_SECRET_KEY"),
+			ApiSecretKey:     os.Getenv("JWT_API_SECRET_KEY"),
 			AccessDuration: func() int64 {
 				result, err := strconv.ParseInt(os.Getenv("JWT_ACCESS_DURATION"), 10, 64)
 				if err != nil {
