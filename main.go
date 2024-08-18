@@ -2,16 +2,16 @@ package main
 
 import (
 	"context"
+	"log"
+	"os"
+
 	"github.com/natdanai0917/test_repo/config"
 	"github.com/natdanai0917/test_repo/pkg/database"
 	"github.com/natdanai0917/test_repo/server"
-	"log"
-	"os"
 )
 
 func main() {
 	ctx := context.Background()
-	_ = ctx
 
 	//initialize config
 	cfg := config.LoadConfig(func() string {
@@ -23,7 +23,7 @@ func main() {
 
 	//Database Connection
 	db := database.DbConn(ctx, &cfg)
-	log.Println(db)
+	defer db.Disconnect(ctx)
 
 	//Start Server
 	server.Start(ctx, &cfg, db)
