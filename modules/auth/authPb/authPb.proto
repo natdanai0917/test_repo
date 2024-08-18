@@ -8,17 +8,17 @@ message AccessTokenSearchReq {
 }
 
 message AccessTokenSearchRes {
-    string isValid = 1;
+    bool isValid = 1;
 }
 
 message RolesCountReq {}   
 
 message RolesCountRes {
     int64 count = 1 ;
-}
+} 
 
 //Method
 service AuthGrpcService {
     rpc AccessTokenSearch(AccessTokenSearchReq) returns (AccessTokenSearchRes);
-    rpc RolseCount(RolesCountReq) returns (RolesCountRes);
+    rpc RolesCount(RolesCountReq) returns (RolesCountRes);
 }
