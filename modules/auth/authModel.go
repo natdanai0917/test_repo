@@ -27,11 +27,11 @@ type (
 	}
 
 	CredentialRes struct {
-		Id          string    `json:"_id" bson:"_id,omitempty"`
-		PlayerId    string    `json:"player_id" bson:"player_id"`
-		RoleCode    string    `json:"role_code" bson:"role_code"`
-		AccessToken string    `json:"access_token" bson:"access_token"`
-		CreatedAt   time.Time `json:"created_at" bson:"created_at"`
-		UpdatedAt   time.Time `json:"updated_at" bson:"updated_at"`
+		Id          string    `json:"_id"`
+		PlayerId    string    `json:"player_id"`
+		RoleCode    string    `json:"role_code"`
+		AccessToken string    `json:"access_token"`
+		CreatedAt   time.Time `json:"created_at"`
+		UpdatedAt   time.Time `json:"updated_at"`
 	}
 )
