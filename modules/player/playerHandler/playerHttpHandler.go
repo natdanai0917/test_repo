@@ -93,5 +93,5 @@ func (h *playerHttpHandler) GetPlayerSavingAccount(c echo.Context) error {
 		return response.ErrResponse(c, http.StatusBadRequest, err.Error())
 	}
 
-	return response.SuccessResponse(c, http.StatusCreated, res)
+	return response.SuccessResponse(c, http.StatusOK, res)
 }
