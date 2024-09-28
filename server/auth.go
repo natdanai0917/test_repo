@@ -15,7 +15,7 @@ func (s *server) authService() {
 	authRepository := authRepository.NewAuthRepository(s.db)
 	authUsecase := authUsecase.NewAuthUseCase(authRepository)
 	authHttpHandler := authHandler.NewAuthHttpHandler(s.cfg, authUsecase)
-	authGrpcHandler := authHandler.NewAuthGrpcHandler(authHttpHandler)
+	authGrpcHandler := authHandler.NewAuthGrpcHandler(authUsecase)
 
 	// gRPC
 	go func() {
@@ -26,12 +26,11 @@ func (s *server) authService() {
 		log.Printf("Auth gRPC Server listening on %s", s.cfg.Grpc.AuthUrl)
 		grpcServer.Serve(lis)
 	}()
-
-	_ = authHttpHandler
-	_ = authGrpcHandler
-
+	
 	auth := s.app.Group("/auth_v1")
 
 	//Health Check
 	auth.GET("", s.healthCheckService)
+	auth.POST("/auth/login",authHttpHandler.LogIn)
+	auth.POST("/auth/refresh-token",authHttpHandler.RefreshToken)
 }

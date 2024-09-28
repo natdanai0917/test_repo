@@ -9,7 +9,7 @@ message PlayerProfile {
     string username=3;
     int32 roleCode = 4;
     string created_at = 5;
-    string updateed_at =6;
+    string updated_at =6;
 }
 
 message CredentialSearchReq{
@@ -33,6 +33,6 @@ message GetPlayerSavingAccountRes {
 //Method
 service PlayerGrpcService {
     rpc CredentialSearch(CredentialSearchReq) returns (PlayerProfile);
-    rpc FindPlayerProfileToRefresh (FindOnePlayerProfileToRefreshReq) returns (PlayerProfile);
+    rpc FindOnePlayerProfileToRefresh (FindOnePlayerProfileToRefreshReq) returns (PlayerProfile);
     rpc GetPlayerSavingAccount (GetPlayerSavingAccountReq) returns (GetPlayerSavingAccountRes);
 }

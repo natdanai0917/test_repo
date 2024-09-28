@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PlayerGrpcServiceClient interface {
 	CredentialSearch(ctx context.Context, in *CredentialSearchReq, opts ...grpc.CallOption) (*PlayerProfile, error)
-	FindPlayerProfileToRefresh(ctx context.Context, in *FindOnePlayerProfileToRefreshReq, opts ...grpc.CallOption) (*PlayerProfile, error)
+	FindOnePlayerProfileToRefresh(ctx context.Context, in *FindOnePlayerProfileToRefreshReq, opts ...grpc.CallOption) (*PlayerProfile, error)
 	GetPlayerSavingAccount(ctx context.Context, in *GetPlayerSavingAccountReq, opts ...grpc.CallOption) (*GetPlayerSavingAccountRes, error)
 }
 
@@ -44,9 +44,9 @@ func (c *playerGrpcServiceClient) CredentialSearch(ctx context.Context, in *Cred
 	return out, nil
 }
 
-func (c *playerGrpcServiceClient) FindPlayerProfileToRefresh(ctx context.Context, in *FindOnePlayerProfileToRefreshReq, opts ...grpc.CallOption) (*PlayerProfile, error) {
+func (c *playerGrpcServiceClient) FindOnePlayerProfileToRefresh(ctx context.Context, in *FindOnePlayerProfileToRefreshReq, opts ...grpc.CallOption) (*PlayerProfile, error) {
 	out := new(PlayerProfile)
-	err := c.cc.Invoke(ctx, "/PlayerGrpcService/FindPlayerProfileToRefresh", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/PlayerGrpcService/FindOnePlayerProfileToRefresh", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (c *playerGrpcServiceClient) GetPlayerSavingAccount(ctx context.Context, in
 // for forward compatibility
 type PlayerGrpcServiceServer interface {
 	CredentialSearch(context.Context, *CredentialSearchReq) (*PlayerProfile, error)
-	FindPlayerProfileToRefresh(context.Context, *FindOnePlayerProfileToRefreshReq) (*PlayerProfile, error)
+	FindOnePlayerProfileToRefresh(context.Context, *FindOnePlayerProfileToRefreshReq) (*PlayerProfile, error)
 	GetPlayerSavingAccount(context.Context, *GetPlayerSavingAccountReq) (*GetPlayerSavingAccountRes, error)
 	mustEmbedUnimplementedPlayerGrpcServiceServer()
 }
@@ -79,8 +79,8 @@ type UnimplementedPlayerGrpcServiceServer struct {
 func (UnimplementedPlayerGrpcServiceServer) CredentialSearch(context.Context, *CredentialSearchReq) (*PlayerProfile, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CredentialSearch not implemented")
 }
-func (UnimplementedPlayerGrpcServiceServer) FindPlayerProfileToRefresh(context.Context, *FindOnePlayerProfileToRefreshReq) (*PlayerProfile, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method FindPlayerProfileToRefresh not implemented")
+func (UnimplementedPlayerGrpcServiceServer) FindOnePlayerProfileToRefresh(context.Context, *FindOnePlayerProfileToRefreshReq) (*PlayerProfile, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindOnePlayerProfileToRefresh not implemented")
 }
 func (UnimplementedPlayerGrpcServiceServer) GetPlayerSavingAccount(context.Context, *GetPlayerSavingAccountReq) (*GetPlayerSavingAccountRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPlayerSavingAccount not implemented")
@@ -116,20 +116,20 @@ func _PlayerGrpcService_CredentialSearch_Handler(srv interface{}, ctx context.Co
 	return interceptor(ctx, in, info, handler)
 }
 
-func _PlayerGrpcService_FindPlayerProfileToRefresh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PlayerGrpcService_FindOnePlayerProfileToRefresh_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(FindOnePlayerProfileToRefreshReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PlayerGrpcServiceServer).FindPlayerProfileToRefresh(ctx, in)
+		return srv.(PlayerGrpcServiceServer).FindOnePlayerProfileToRefresh(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/PlayerGrpcService/FindPlayerProfileToRefresh",
+		FullMethod: "/PlayerGrpcService/FindOnePlayerProfileToRefresh",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PlayerGrpcServiceServer).FindPlayerProfileToRefresh(ctx, req.(*FindOnePlayerProfileToRefreshReq))
+		return srv.(PlayerGrpcServiceServer).FindOnePlayerProfileToRefresh(ctx, req.(*FindOnePlayerProfileToRefreshReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -164,8 +164,8 @@ var PlayerGrpcService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _PlayerGrpcService_CredentialSearch_Handler,
 		},
 		{
-			MethodName: "FindPlayerProfileToRefresh",
-			Handler:    _PlayerGrpcService_FindPlayerProfileToRefresh_Handler,
+			MethodName: "FindOnePlayerProfileToRefresh",
+			Handler:    _PlayerGrpcService_FindOnePlayerProfileToRefresh_Handler,
 		},
 		{
 			MethodName: "GetPlayerSavingAccount",
